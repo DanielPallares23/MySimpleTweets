@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.codepath.apps.restclienttemplate.models.ParseRelativeDate;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 
 import java.util.List;
@@ -48,6 +49,9 @@ public TweetAdapter(List<Tweet>tweets) {
         // populate the views according to this data
         holder.tvUsername.setText(tweet.user.name);
         holder.tvBody.setText(tweet.body);
+        holder.tvScreenName.setText("@" + tweet.user.screenName);
+        holder.tvTimeStamp.setText(ParseRelativeDate.getRelativeTimeAgo(tweet.createdAt));
+
 
         Glide.with(context).load(tweet.user.profileImageUrl).into(holder.ivProfileImage);
 
@@ -64,6 +68,8 @@ public TweetAdapter(List<Tweet>tweets) {
         public ImageView ivProfileImage;
         public TextView tvUsername;
         public TextView tvBody;
+        public TextView tvScreenName;
+        public TextView tvTimeStamp;
 
         public ViewHolder (View itemView) {
             super(itemView);
@@ -73,6 +79,8 @@ public TweetAdapter(List<Tweet>tweets) {
             ivProfileImage = (ImageView) itemView.findViewById(R.id.ivProfileImage);
             tvUsername = (TextView) itemView.findViewById(R.id.tvUserName);
             tvBody = (TextView) itemView.findViewById(R.id.tvBody);
+            tvScreenName = (TextView) itemView.findViewById(R.id.tvScreenName);
+            tvTimeStamp = (TextView) itemView.findViewById(R.id.tvTimeStamp);
 
         }
     }

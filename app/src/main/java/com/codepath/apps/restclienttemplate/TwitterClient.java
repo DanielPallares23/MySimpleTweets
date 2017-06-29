@@ -67,4 +67,16 @@ public class TwitterClient extends OAuthBaseClient {
 		params.put("status", message);
 		client.post(apiUrl, params, handler);
 	}
+
+	public void getScreenName(AsyncHttpResponseHandler handler) {
+		String apiUrl = getApiUrl("account/settings.json");
+		client.get(apiUrl, handler);
+	}
+
+	public void getProfileDetails(String name, AsyncHttpResponseHandler handler) {
+        String apiUrl = getApiUrl("users/show.json");
+        RequestParams params = new RequestParams();
+        params.put("screen_name", name);
+        client.get(apiUrl,params, handler);
+    }
 }

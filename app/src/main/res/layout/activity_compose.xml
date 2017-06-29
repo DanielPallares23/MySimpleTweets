@@ -10,7 +10,6 @@
         android:id="@+id/et_composeTweet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/bt_Tweet"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/ivProfileImage"
@@ -21,7 +20,8 @@
         android:textColor="@color/medium_gray"
         android:textColorLink="@color/twitter_blue"
         tools:layout_editor_absoluteX="-1dp"
-        tools:layout_editor_absoluteY="1dp" />
+        tools:layout_editor_absoluteY="1dp"
+        android:layout_above="@+id/bt_Tweet" />
 
     <ImageView
         android:id="@+id/ivProfileImage"
@@ -36,14 +36,13 @@
         android:id="@+id/bt_Tweet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="10dp"
         android:onClick="onSubmit"
         android:text="Tweet"
         android:textColorLink="@color/twitter_blue"
         tools:layout_editor_absoluteX="58dp"
-        tools:layout_editor_absoluteY="1dp" />
+        tools:layout_editor_absoluteY="1dp"
+        android:layout_centerVertical="true"
+        android:layout_alignEnd="@+id/ivProfileImage" />
 
     <Button
         android:id="@+id/bt_CancelCompose"

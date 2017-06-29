@@ -1,11 +1,16 @@
 package com.codepath.apps.restclienttemplate;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.codepath.apps.restclienttemplate.models.ComposeActivity;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -23,6 +28,7 @@ public class TimelineActivity extends AppCompatActivity {
     TweetAdapter tweetdAdapter;
     ArrayList<Tweet> tweets;
     RecyclerView rvTweets;
+    final int REQUEST_CODE = 20;
 
 
     @Override
@@ -44,7 +50,8 @@ public class TimelineActivity extends AppCompatActivity {
         populateTimeline();
     }
 
-    private void populateTimeline() {
+    public void populateTimeline() {
+
         client.getHomeTimeline(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -53,6 +60,7 @@ public class TimelineActivity extends AppCompatActivity {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                Toast.makeText(TimelineActivity.this, "Populate Timeline", Toast.LENGTH_LONG).show();
     //            Log.d("Twitter Client", response.toString());
                 // iterate through the JSON array
                 // for each entry, deserialize the JSON object
@@ -64,6 +72,7 @@ public class TimelineActivity extends AppCompatActivity {
                         Tweet tweet = Tweet.fromJSON(response.getJSONObject(i));
                         tweets.add(tweet);
                         tweetdAdapter.notifyItemInserted(tweets.size() - 1);
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -90,5 +99,42 @@ public class TimelineActivity extends AppCompatActivity {
                 throwable.printStackTrace();
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu); // POSSIBLE ERROR HERE
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.miCompose:
+                Intent i = new Intent(this, ComposeActivity.class);
+                startActivityForResult(i, REQUEST_CODE);
+                return true;
+            default:
+                Toast.makeText(this, "default Case", Toast.LENGTH_LONG).show();
+                return true;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // check request code and result code first
+        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
+            // Extract name value from result extras
+
+            // Use data parameter
+            Tweet tweet = data.getParcelableExtra("tweet");
+            String someName = data.getStringExtra("someName");
+            Log.d("Correct", "Tweet: " + tweet.body);
+            tweets.add(0, tweet);
+            tweetdAdapter.notifyItemInserted(0);
+            rvTweets.scrollToPosition(0);
+            // Toast the name to display temporarily on screen
+        }
+
     }
 }

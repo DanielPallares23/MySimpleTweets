@@ -27,8 +27,17 @@ public class ParseRelativeDate {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
-        return relativeDate;
+        // make format '13h' not '13 hours ago' for all cases
+        int indexOfHour = relativeDate.indexOf('h');
+        int indexOfMinute = relativeDate.indexOf('m');
+        int indexOfSecond = relativeDate.indexOf('s');
+        if(indexOfHour != -1) {
+            return relativeDate.substring(0,indexOfHour + 1).replaceAll("\\s","");
+        }
+        if(indexOfMinute != -1) {
+            return relativeDate.substring(0, indexOfMinute + 1).replaceAll("\\s","");
+        }
+        return relativeDate.substring(0, indexOfSecond + 1).replaceAll("\\s","");
     }
 
 }

@@ -1,6 +1,7 @@
 package com.codepath.apps.restclienttemplate.models;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -58,6 +59,9 @@ public class ComposeActivity extends AppCompatActivity {
 
     public void onEditTweet(View view) {
         EditText etName = (EditText) findViewById(R.id.et_composeTweet);
-        etName.setText("", null);
+        if (etName.getText().toString().equals("What's happening?")) {
+            etName.setText("", null);
+            etName.setTextColor(Color.BLACK);
+        }
     }
 }

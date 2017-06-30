@@ -30,19 +30,19 @@
         android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/bt_CancelCompose"
         android:layout_marginRight="10dp"
-        app:srcCompat="@android:color/black" />
+        app:srcCompat="@color/light_gray" />
 
     <Button
         android:id="@+id/bt_Tweet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/ivProfileImage"
+        android:layout_centerVertical="true"
         android:onClick="onSubmit"
         android:text="Tweet"
         android:textColorLink="@color/twitter_blue"
         tools:layout_editor_absoluteX="58dp"
-        tools:layout_editor_absoluteY="1dp"
-        android:layout_centerVertical="true"
-        android:layout_alignEnd="@+id/ivProfileImage" />
+        tools:layout_editor_absoluteY="1dp" />
 
     <Button
         android:id="@+id/bt_CancelCompose"

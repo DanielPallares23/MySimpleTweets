@@ -55,6 +55,7 @@ public TweetAdapter(List<Tweet>tweets) {
 
         Glide.with(context).load(tweet.user.profileImageUrl).into(holder.ivProfileImage);
 
+
     }
 
     @Override
